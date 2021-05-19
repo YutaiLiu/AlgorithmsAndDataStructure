@@ -72,6 +72,7 @@ public class LinkedListTest {
     public void DeleteValue() {
         linkedList.addBack(1);
         linkedList.addBack(2);
+        linkedList.addBack(2);
         linkedList.addBack(3);
 
         linkedList.deleteValue(2);

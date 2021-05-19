@@ -28,7 +28,7 @@ public class HashTableTest {
         Assert.assertEquals("418-4165", hashTable.get("Ted Baker"));
         Assert.assertEquals(null, hashTable.get("Tim Lee"));
 
-        hashTable.toString();
+        System.out.println(hashTable.toString());
     }
 
     @Test

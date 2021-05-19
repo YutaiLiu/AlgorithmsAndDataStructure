@@ -14,79 +14,62 @@ public class LinkedList {
     public Node head;
 
     public void addFront(int data) {
-
-        // Create new node
         Node newNode = new Node(data);
-
-        // if head...
         if (head == null) {
             head = newNode;
-            return;
+        } else {
+            newNode.next = head;
+            head = newNode;
         }
-
-        // Set it's next to current head
-        newNode.next = head;
-
-        // Set current head equal to this new head
-        head = newNode;
     }
 
     public int getFirst() {
-        return head.data;
+        if (head == null) {
+            throw new IllegalStateException("Linked list head is null");
+        } else {
+            return head.data;
+        }
+    }
+
+    public Node getLastNode() {
+        if (head == null) {
+            throw new IllegalStateException("Linked list head is null");
+        } else {
+            Node cur = head;
+            while (cur.next != null) {
+                cur = cur.next;
+            }
+            return cur;
+        }
     }
 
     public int getLast() {
         if (head == null) {
-            throw new IllegalStateException("Empty list!");
+            throw new IllegalStateException("Linked list head is null");
+        } else {
+            Node cur = getLastNode();
+            return cur.data;
         }
-
-        Node current = head;
-
-        // while we are not at the tail
-        while (current.next != null) {
-            current = current.next; // O(n)
-        }
-
-        // We are at the tail
-        return current.data;
     }
 
     public void addBack(int data) {
-        Node newNode = new Node(data);
-
-        // if head... set and return
         if (head == null) {
-            head = newNode;
-            return;
+            addFront(data);
+        } else {
+            Node cur = getLastNode();
+            Node last = new Node(data);
+            cur.next = last;
         }
-
-        // Else starting at head...
-        Node current = head;
-
-        // Walk until to hit tail
-        while (current.next != null) {
-            current = current.next;
-        }
-
-        // Set current node to equal newNode
-        current.next = newNode;
     }
 
     public int size() {
-
-        if (head == null) {
-            return 0;
+        int size = 0;
+        Node node = head;
+        while (node != null) {
+            node = node.next;
+            size++;
         }
-
-        int count = 1;
-        Node current = head;
-
-        while (current.next != null) {
-            current = current.next;
-            count++;
-        }
-
-        return count;
+        return size;
     }
 
     public void clear() {
@@ -94,35 +77,25 @@ public class LinkedList {
     }
 
     public void deleteValue(int data) {
-
-        // if head
-        if (head == null) {
-            return;
-        }
-        if (head.data == data) {
-            head = head.next;
-            return;
-        }
-
-        // else walk the list
-        Node current = head;
-
-        while (current.next != null) {
-            if (current.next.data == data) {
-                current.next = current.next.next;
-                return;
+        Node helper = head;
+        Node preNode = head;
+        while (helper != null) {
+            if (helper.data == data) {
+                preNode.next = helper.next;
+                helper = helper.next;
+            } else {
+                preNode = helper;
+                helper = helper.next;
             }
-            current = current.next;
         }
     }
 
     public void print() {
-        Node current = head;
-        while (current != null) {
-            System.out.println(current.data);
-            current = current.next;
+        Node helper = head;
+        while (helper != null) {
+            System.out.println(helper.data);
+            helper = helper.next;
         }
-        System.out.println("");
     }
 
 }

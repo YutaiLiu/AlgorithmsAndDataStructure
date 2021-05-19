@@ -1,5 +1,7 @@
 package datastructures;
 
+import java.util.EmptyStackException;
+
 public class Queue {
 
     private class Node {
@@ -22,35 +24,30 @@ public class Queue {
     }
 
     public void add(int data) {
-        // Create a new node
-        // Set the current tail.next to point to this new node
-        // Then set the new node to be the new tail
-
         Node newNode = new Node(data);
-        if (tail != null) {
-            tail.next = newNode;
-        }
-        tail = newNode;
 
-        // handle case of first element where head is null
-        if (head == null) {
-            head = tail;
+        if (isEmpty()) {
+            head = newNode;
+            tail = head;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
         }
     }
 
     public int remove() {
-        // Save the data
-        // Point the head to the next element (effectively removing it)
-        // Then return the data
-
-        int data = head.data;
-        head = head.next;
-
-        // Handle queue now being empty
-        if (head == null) {
-            tail = null;
+        if (isEmpty()) {
+            throw new EmptyStackException();
         }
 
-        return data;
+        int res = peek();
+        if (head == tail) {
+            head = null;
+            tail = head;
+        } else {
+            head = head.next;
+        }
+
+        return res;
     }
 }

@@ -10,7 +10,7 @@ public class DynamicArrayTest {
 
     @Before
     public void SetUp() {
-        array = new DynamicArray<String>(2);
+        array = new DynamicArray<String>(4);
     }
 
     @Test
@@ -21,13 +21,15 @@ public class DynamicArrayTest {
 
     @Test
     public void Insert() {
-        array.add("a"); // 0
-        array.add("b"); // 1
-        array.add("c"); // 2
-
+        array.add("a");
+        Assert.assertEquals(1, array.size());
+        array.add("b");
+        Assert.assertEquals(2, array.size());
+        array.add("c");
+        Assert.assertEquals(3, array.size());
         array.insert(1, "d");
-
         Assert.assertEquals(4, array.size());
+
         Assert.assertEquals("a", array.get(0));
         Assert.assertEquals("d", array.get(1));
         Assert.assertEquals("b", array.get(2));

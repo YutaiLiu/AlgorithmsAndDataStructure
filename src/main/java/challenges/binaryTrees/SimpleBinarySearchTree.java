@@ -8,6 +8,8 @@ public class SimpleBinarySearchTree {
 
         public Node(int key) {
             this.key = key;
+            this.left = null;
+            this.right = null;
         }
     }
 
@@ -22,42 +24,28 @@ public class SimpleBinarySearchTree {
     }
 
     public Node insertItem(Node node, int key) {
-
         Node newNode = new Node(key);
 
         if (node == null) {
             node = newNode;
             return node;
+        } else if (node.key > key) {
+            return insertItem(node.left, key);
+        } else {
+            return insertItem(node.right, key);
         }
-
-        if (key < node.key) {
-            node.left = insertItem(node.left, key);
-        } if (key > node.key) {
-            node.right = insertItem(node.right, key);
-        }
-
-        return node;
     }
 
     public String getOrder() {
-        StringBuilder sb = new StringBuilder();
-        preOrderTraversal(root, sb);
-        return sb.toString();
+        return "";
     }
 
     public void printPreOrderTraversal() {
-        preOrderTraversal(root, null);
+
     }
 
     private void preOrderTraversal(Node node, StringBuilder sb) {
-        if (node != null) {
 
-            if (sb != null) {
-                sb.append(node.key);
-            }
-            preOrderTraversal(node.left, sb);
-            preOrderTraversal(node.right, sb);
-        }
     }
 
     //
