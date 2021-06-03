@@ -33,9 +33,12 @@ public class BinarySearchTreeTest {
         Assert.assertEquals(null, bst.find(99));
 
         bst.prettyPrint();
+        bst.printInOrderTraversal();
 
-//        bst.printInOrderTraversal();
-//        bst.printPreOrderTraversal();
+        bst.prettyPrint();
+        bst.printPreOrderTraversal();
+
+        bst.prettyPrint();
         bst.printPostOrderTraversal();
     }
 
@@ -62,7 +65,7 @@ public class BinarySearchTreeTest {
 
         Assert.assertNull(bst.find(2));
 
-        bst.prettyPrint();
+        //bst.prettyPrint();
     }
 
     @Test
@@ -79,7 +82,7 @@ public class BinarySearchTreeTest {
 
         Assert.assertNull(bst.find(7));
 
-        bst.prettyPrint();
+        //bst.prettyPrint();
     }
 
     @Test
@@ -96,7 +99,7 @@ public class BinarySearchTreeTest {
 
         Assert.assertNull(bst.find(7));
 
-        bst.prettyPrint();
+        //bst.prettyPrint();
     }
 
     @Test

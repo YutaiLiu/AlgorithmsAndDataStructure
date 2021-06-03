@@ -27,27 +27,19 @@ public class BinarySearchTree {
         root = null;
     }
 
-    // Find
     public String find(int key) {
-
-        // First find the node
         Node node = find(root, key);
-
-        // Then return the value
         return node == null ? null : node.value;
     }
 
     private Node find(Node node, int key) {
         if (node == null || node.key == key) {
             return node;
-        } else if (key < node.key) {
+        } else if (node.key > key) {
             return find(node.left, key);
-        } else if (key > node.key) {
+        } else {
             return find(node.right, key);
         }
-        return null;
-
-        // Note: Duplicate keys aren't allowed (so we don't need to check for that)
     }
 
     // Insert
@@ -56,25 +48,15 @@ public class BinarySearchTree {
     }
 
     public Node insertItem(Node node, int key, String value) {
-
-        // If null - set it here. We are done.
         if (node == null) {
-            node = new Node(key, value);;
+            node = new Node(key, value);
             return node;
-        }
-
-        // Else
-        // Walk until you find a node
-        // that is null and set it there
-        if (key < node.key) {
+        } else if (node.key > key) {
             node.left = insertItem(node.left, key, value);
-        } if (key > node.key) {
+        } else {
             node.right = insertItem(node.right, key, value);
         }
 
-        // If we get here we have have hit the bottom our or tree with a duplicate.
-        // Since duplicates are not allowed in BSTs, simply ignore the duplicate,
-        // and return our fully constructed tree. We are done!
         return node;
     }
 
@@ -106,7 +88,8 @@ public class BinarySearchTree {
     }
 
     public Node findMin(Node node) {
-        return node.min();
+        Node min = node.min();
+        return min;
     }
 
     public void delete(int key) {
@@ -116,34 +99,21 @@ public class BinarySearchTree {
     public Node delete(Node node, int key) {
         if (node == null) {
             return null;
-        } else if (key < node.key) {
+        } else if (node.key > key) {
             node.left = delete(node.left, key);
-        } else if (key > node.key) {
+        } else if (node.key < key) {
             node.right = delete(node.right, key);
-        } else { // Woohoo! Found you. This is the node we want to delete.
-
-            // Case 1: No child
+        } else {
             if (node.left == null && node.right == null) {
-                node = null;
-            }
-
-            // Case 2: One child
-            else if (node.left == null) {
-                node = node.right;
-            } else if (node.right == null) {
+                return null;
+            } else if (node.left != null) {
                 node = node.left;
-            }
-
-            // Case 3: Two children
-            else {
-                // Find the minimum node on the right (could also max the left...)
-                Node minRight = findMin(node.right);
-
-                // Duplicate it by copying its values here
-                node.key = minRight.key;
-                node.value = minRight.value;
-
-                // Now go ahead and delete the node we just duplicated (same key)
+            } else if (node.right != null) {
+                node = node.right;
+            } else {
+                Node minNode = findMin(node.right);
+                node.key = minNode.key;
+                node.value = minNode.value;
                 node.right = delete(node.right, node.key);
             }
         }
